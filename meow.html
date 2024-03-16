@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/1fe9a2c7df.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow</title>
+</head>
+<body>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+        }
+        h1{
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card{
+            padding: 10px;
+            margin-top: 50px;
+            border-radius: 10px;
+            width: fit-content;
+            text-align: center;
+            margin: 60px;
+            transition: box-shadow 0.7s ease;
+        }
+        .card:hover{
+            box-shadow: 4px 4px 4px 4px gray;
+        }
+        .card img{
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            border-style: solid;
+            border-width: 4px;
+        }
+        .card h3{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        #animContainer{
+            height: 100px;
+            width: 100px;
+        }
+        h4{
+            text-align: center;
+        }
+    </style>
+   <div id="animContainer"></div>
+   <h1> Cat Facts</h1>
+   <h4 id="h4"></h4>
+    <div class="container">
+        <div class="card" id="card">
+            <img src="" alt="cat pic">
+            <h3></h3>
+        </div>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js'></script> 
+    <script>
+        fetch('https://meowfacts.herokuapp.com/?count=1')
+        .then(res=>res.json())
+        .then(data=>{
+            let h3=document.querySelector('h3');
+            h3.innerText=data.data;
+        });
+        fetch('https://api.thecatapi.com/v1/images/search')
+        .then(res=>res.json())
+        .then(data=>{
+            let img=document.querySelector('img');
+            img.src=data[0].url;
+        });
+        fetch('https://x-colors.yurace.pro/api/random')
+        .then(res=>res.json())
+        .then(data=>{
+            let card=document.getElementById('card');
+            card.style.backgroundColor=data.hex;
+        });
+        let card=document.getElementById('card');
+        card.addEventListener("mouseover",()=>{
+            let img=document.querySelector('img');
+            img.style.borderColor="#1fff57";
+        })
+        card.addEventListener("mouseout",()=>{
+            let img=document.querySelector('img');
+            img.style.borderColor="black";
+        });
+var animation = bodymovin.loadAnimation({
+  container: document.getElementById('animContainer'),
+  renderer: 'svg',
+  loop: true,
+  autoplay: true,
+  path: 'https://lottie.host/3ee1e0ce-f077-47ea-836e-450ef5a874cf/0v5O9kWV08.json' // lottie file path
+});
+fetch('https://crossorigin.me/https://www.randomnumberapi.com/api/v1.0/random?min=100&max=1000&count=1')
+  .then(response => response.json())
+  .then(data => console.log(data[0]))
+  .catch(error => console.error('Error fetching data:', error));
+
+        console.log("Created by Shadman")
+    </script>
+</body>
+</html>
